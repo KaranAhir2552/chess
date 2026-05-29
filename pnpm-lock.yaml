@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      pnpm:
+        specifier: ^11.4.0
+        version: 11.4.0
     devDependencies:
       husky:
         specifier: ^9.1.7
@@ -32,6 +36,9 @@ importers:
       react:
         specifier: ^19.2.6
         version: 19.2.6
+      react-chessboard-ui:
+        specifier: ^2.7.0
+        version: 2.7.0(react@19.2.6)
       react-dom:
         specifier: ^19.2.6
         version: 19.2.6(react@19.2.6)
@@ -1240,6 +1247,9 @@ packages:
   citty@0.1.6:
     resolution: {integrity: sha512-tskPPKEs8D2KPafUypv2gxwJP8h/OaJmC82QQGGDQcHvXX43xF2VDACcJVmZ0EuSxkpO9Kc4MlrA3q0+FG58AQ==}
 
+  classnames@2.5.1:
+    resolution: {integrity: sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==}
+
   cli-cursor@5.0.0:
     resolution: {integrity: sha512-aCj4O5wKyszjMmDT4tZj93kxyydN/K5zPWSCe6/0AV/AA1pqe5ZBIw0a2ZfPQV7lL5/yb5HsUreJ6UFAF1tEQw==}
     engines: {node: '>=18'}
@@ -2351,6 +2361,11 @@ packages:
   pkg-types@2.3.0:
     resolution: {integrity: sha512-SIqCzDRg0s9npO5XQ3tNZioRY1uK06lA41ynBC1YmFTmnY6FjUjVt6s4LoADmwoig1qqD0oK8h1p/8mlMx8Oig==}
 
+  pnpm@11.4.0:
+    resolution: {integrity: sha512-8P68fjdVKrSFSUqRQkGzOOCzWAuT1UzjHwCTMBWICGMSkDihtK5OQUoO5jrDW/IRl+mQFyxKaCVkULVjYxCWjw==}
+    engines: {node: '>=22.13'}
+    hasBin: true
+
   possible-typed-array-names@1.1.0:
     resolution: {integrity: sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==}
     engines: {node: '>= 0.4'}
@@ -2439,6 +2454,12 @@ packages:
 
   rc9@2.1.2:
     resolution: {integrity: sha512-btXCnMmRIBINM2LDZoEmOogIZU7Qe7zn4BpomSKZ/ykbLObuBdvG+mFq11DL6fjH1DRwHhrlgtYWG96bJiC7Cg==}
+
+  react-chessboard-ui@2.7.0:
+    resolution: {integrity: sha512-C/73Bgu3NTQAeF0Qpa9kvVMiBU/UCetbriYbx62UKXuUyvnyB+Z45DgNbckLpZhs2WkAIhp3izHS9u1mxOP6SA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^19.1.0
 
   react-dom@19.2.0:
     resolution: {integrity: sha512-UlbRu4cAiGaIewkPyiRGJk0imDN2T3JjieT6spoL2UeSf5od4n5LB/mQ4ejmxhCFT1tYe8IvaFulzynWovsEFQ==}
@@ -4034,6 +4055,8 @@ snapshots:
     dependencies:
       consola: 3.4.2
 
+  classnames@2.5.1: {}
+
   cli-cursor@5.0.0:
     dependencies:
       restore-cursor: 5.1.0
@@ -5276,6 +5299,8 @@ snapshots:
       exsolve: 1.0.8
       pathe: 2.0.3
 
+  pnpm@11.4.0: {}
+
   possible-typed-array-names@1.1.0: {}
 
   postcss@8.5.15:
@@ -5358,6 +5383,11 @@ snapshots:
     dependencies:
       defu: 6.1.4
       destr: 2.0.5
+
+  react-chessboard-ui@2.7.0(react@19.2.6):
+    dependencies:
+      classnames: 2.5.1
+      react: 19.2.6
 
   react-dom@19.2.0(react@19.2.0):
     dependencies:

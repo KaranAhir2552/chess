@@ -1,24 +1,21 @@
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-import Dashboard from "./pages/dashboard";
-function Home() {
-  return <div className='flex justify-center items-center h-screen w-screen'>
-      <a href="http://localhost:4000/api/auth/github">
-        Login with GitHub
-      </a>
-    </div>;
-}
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+import Login from './Auth/Login';
+import ChessBoardPage from './pages/chess_board';
+import Register from './Auth/Register';
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <Home />,
+    path: '/',
+    element: <Login />,
   },
   {
-    path: "/dashboard",
-    element: <Dashboard />,
+    path: '/register',
+    element: <Register />,
+  },
+  {
+    path: '/chess-board',
+    element: <ChessBoardPage />,
   },
 ]);
 

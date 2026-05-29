@@ -24,5 +24,8 @@
   "packageManager": "pnpm@10.28.0",
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "pnpm": "^11.4.0"
   }
 }
