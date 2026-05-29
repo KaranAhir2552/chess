@@ -1,0 +1,21 @@
+{
+  "name": "@repo/db",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    "./client": "./src/index.ts",
+    "./enum": "./generated/prisma/enums.ts",
+    "./model": "./generated/prisma/models.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.2.0",
+    "@prisma/adapter-pg": "^7.2.0",
+    "dotenv": "^17.2.3",
+    "prisma": "^7.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@repo/backend-common": "workspace:*"
+  }
+}

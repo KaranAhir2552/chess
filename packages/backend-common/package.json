@@ -1,0 +1,28 @@
+{
+  "name": "@repo/backend-common",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "exports": {
+    "./config": "./src/config/env.ts",
+    "./async": "./src/async/asyncHandler.ts",
+    "./response": "./src/response/apiResponse.ts",
+    "./errors": "./src/errors/apiError.ts",
+    "./middlewares/global-error-handler": "./src/middlewares/globalErrorHandler.ts",
+    "./utils/token": "./src/utils/token/index.ts"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6"
+  }
+}
