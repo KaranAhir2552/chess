@@ -6,3 +6,49 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id           String   @id @default(uuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  // whiteGames Game[] @relation("WhiteGames")
+  // blackGames Game[] @relation("BlackGames")
+}
+
+model  Game {
+  id           String   @id @default(uuid())
+  whiteUserId  String
+  blackUserId  String
+  status       String
+  result       String
+  currentFen   String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // whiteUser User @relation("WhiteGames", fields: [whiteUserId], references: [id])
+  // blackUser User @relation("BlackGames", fields: [blackUserId], references: [id])
+  // moves     Move[]
+}
+
+model Move {
+  id         String   @id @default(uuid())
+  gameId     String
+  moveNumber Int
+  san        String
+  from       String
+  to         String
+  fenAfter   String
+  createdAt  DateTime @default(now())
+
+  // game Game @relation(fields: [gameId], references: [id])
+}
+
+model Indexes {
+  id         String   @id @default(uuid())
+  gameId     String
+  moveNumber Int
+
+  @@index([gameId, moveNumber])
+}
+
