@@ -3640,7 +3640,7 @@ snapshots:
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 22.15.3
+      '@types/node': 24.12.4
 
   '@types/cors@2.8.19':
     dependencies:
@@ -3704,7 +3704,7 @@ snapshots:
 
   '@types/send@1.2.1':
     dependencies:
-      '@types/node': 22.15.3
+      '@types/node': 24.12.4
 
   '@types/serve-static@2.2.0':
     dependencies:

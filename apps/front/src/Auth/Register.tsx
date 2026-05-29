@@ -4,7 +4,7 @@ import { AuthApi } from '../Services/ApiEndPoint';
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
-    name: '',
+    // name: '',
     email: '',
     password: '',
   });
