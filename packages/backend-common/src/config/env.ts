@@ -15,4 +15,5 @@ export const env = {
   GITHUB_APP_NAME: process.env.GITHUB_APP_NAME,
   GITHUB_WEBHOOK_SECRET: process.env.GITHUB_WEBHOOK_SECRET,
   PORT: process.env.PORT,
+  WSPORT: process.env.WSPORT,
 };

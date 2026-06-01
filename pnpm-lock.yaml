@@ -137,6 +137,9 @@ importers:
 
   apps/ws-server:
     dependencies:
+      '@repo/backend-common':
+        specifier: workspace:*
+        version: link:../../packages/backend-common
       chess.js:
         specifier: ^1.4.0
         version: 1.4.0
