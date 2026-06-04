@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { postAPI } from '../Services/BasicApi';
 import { AuthApi } from '../Services/ApiEndPoint';
+import { useNavigate } from 'react-router-dom';
 
 const Register: React.FC = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     // name: '',
     email: '',
@@ -33,6 +35,7 @@ const Register: React.FC = () => {
       // STORE TOKEN IF RECEIVED
       if (response?.data?.token) {
         localStorage.setItem('token', response.data.token);
+        navigate('/chess-board');
       }
 
       alert('Registration Successful');

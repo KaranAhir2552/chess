@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { postAPI } from '../Services/BasicApi';
 import { AuthApi } from '../Services/ApiEndPoint';
+import { useNavigate } from 'react-router-dom';
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +10,7 @@ const Login: React.FC = () => {
   });
 
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
@@ -32,9 +33,8 @@ const Login: React.FC = () => {
       // STORE TOKEN
       if (response?.data?.token) {
         localStorage.setItem('token', response.data.token);
+        navigate('/chess-board');
       }
-
-      alert('Login Successful');
     } catch (error) {
       console.log('Login Error:', error);
     } finally {

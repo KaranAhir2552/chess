@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './Auth/Login';
 import ChessBoardPage from './pages/chess_board';
 import Register from './Auth/Register';
-
+import ProtectedRoutes from './routes/ProtectedRoutes.js';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -15,7 +15,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/chess-board',
-    element: <ChessBoardPage />,
+    element: (
+      <ProtectedRoutes>
+        <ChessBoardPage />
+      </ProtectedRoutes>
+    ),
   },
 ]);
 
