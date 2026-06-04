@@ -1,8 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ChessBoard as Board } from 'react-chessboard-ui';
 import 'react-chessboard-ui/dist/index.css';
+import { socket } from '../../socket';
 
 const ChessBoardPage: React.FC = () => {
+  useEffect(() => {
+    socket.connect();
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
   return (
     <main className="border border-black h-screen flex items-center justify-center">
       {/* FEN: Forsyth Edwards Notation
