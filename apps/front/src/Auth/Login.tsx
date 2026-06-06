@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { postAPI } from '../Services/BasicApi';
 import { AuthApi } from '../Services/ApiEndPoint';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
 
 const Login: React.FC = () => {
@@ -84,6 +84,15 @@ const Login: React.FC = () => {
           >
             {loading ? 'Loading...' : 'Login'}
           </button>
+
+          <div className="text-center">
+            <p className="text-sm text-gray-600">
+              New here?{' '}
+              <Link to="/register" className="text-black font-semibold hover:underline">
+                Register yourself
+              </Link>
+            </p>
+          </div>
         </form>
       </div>
     </div>

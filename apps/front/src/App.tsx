@@ -6,6 +6,7 @@ import Register from './Auth/Register';
 import { Toaster } from 'react-hot-toast';
 
 const isAuthenticated = () => {
+  console.log('Checking Authentication: ', !!localStorage.getItem('token'));
   return !!localStorage.getItem('token');
 };
 

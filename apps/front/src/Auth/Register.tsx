@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { postAPI } from '../Services/BasicApi';
 import { AuthApi } from '../Services/ApiEndPoint';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
@@ -35,12 +36,12 @@ const Register: React.FC = () => {
       // STORE TOKEN IF RECEIVED
       if (response?.data?.token) {
         localStorage.setItem('token', response.data.token);
+        toast.success('Registration Successful');
         navigate('/');
       }
-
-      alert('Registration Successful');
     } catch (error) {
       console.log('Register Error:', error);
+      toast.error('Registration Failed');
     } finally {
       setLoading(false);
     }
