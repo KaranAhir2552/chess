@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { postAPI } from '../Services/BasicApi';
 import { AuthApi } from '../Services/ApiEndPoint';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
 
 const Login: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -33,10 +34,12 @@ const Login: React.FC = () => {
       // STORE TOKEN
       if (response?.data?.token) {
         localStorage.setItem('token', response.data.token);
-        navigate('/chess-board');
+        toast.success('Login Successful');
+        navigate('/');
       }
     } catch (error) {
       console.log('Login Error:', error);
+      toast.error('Login Failed');
     } finally {
       setLoading(false);
     }

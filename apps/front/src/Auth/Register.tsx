@@ -35,7 +35,7 @@ const Register: React.FC = () => {
       // STORE TOKEN IF RECEIVED
       if (response?.data?.token) {
         localStorage.setItem('token', response.data.token);
-        navigate('/chess-board');
+        navigate('/');
       }
 
       alert('Registration Successful');

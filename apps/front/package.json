@@ -10,14 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@repo/backend-common": "workspace:*",
     "@tailwindcss/vite": "^4.3.0",
     "react": "^19.2.6",
     "react-chessboard-ui": "^2.7.0",
     "react-dom": "^19.2.6",
+    "react-hot-toast": "^2.6.0",
     "react-router-dom": "^7.15.1",
     "socket.io-client": "^4.8.3",
-    "tailwindcss": "^4.3.0",
-    "@repo/backend-common": "workspace:*"
+    "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
