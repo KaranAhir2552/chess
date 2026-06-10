@@ -7,48 +7,233 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
-  id           String   @id @default(uuid())
-  email        String   @unique
-  passwordHash String
-  createdAt    DateTime @default(now())
-  // whiteGames Game[] @relation("WhiteGames")
-  // blackGames Game[] @relation("BlackGames")
+enum Color {
+  WHITE
+  BLACK
 }
 
-model  Game {
-  id           String   @id @default(uuid())
-  whiteUserId  String
-  blackUserId  String
-  status       String
-  result       String
-  currentFen   String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+enum UserStatus {
+  OFFLINE
+  ONLINE
+  IN_GAME
+}
 
-  // whiteUser User @relation("WhiteGames", fields: [whiteUserId], references: [id])
-  // blackUser User @relation("BlackGames", fields: [blackUserId], references: [id])
-  // moves     Move[]
+enum GameStatus {
+  WAITING
+  ACTIVE
+  FINISHED
+  ABORTED
+}
+
+enum GameResult {
+  WHITE_WIN
+  BLACK_WIN
+  DRAW
+}
+
+enum FriendRequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum TimeControlType {
+  BULLET
+  BLITZ
+  RAPID
+  CLASSICAL
+  CUSTOM
+}
+
+enum GameEventType {
+  GAME_CREATED
+  GAME_STARTED
+  MOVE_MADE
+  DRAW_OFFERED
+  DRAW_ACCEPTED
+  RESIGNED
+  TIMEOUT
+  ABORTED
+  GAME_FINISHED
+}
+
+model User {
+  id           String     @id @default(uuid())
+  // username     String     @unique
+  email        String     @unique
+  passwordHash String
+
+  rating       Int        @default(1200)
+  status       UserStatus @default(OFFLINE)
+
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  participants GameParticipant[]
+
+  sentRequests     FriendRequest[] @relation("SentFriendRequests")
+  receivedRequests  FriendRequest[] @relation("ReceivedFriendRequests")
+
+  friendshipsAsUser1 Friendship[] @relation("FriendshipUser1")
+  friendshipsAsUser2 Friendship[] @relation("FriendshipUser2")
+
+  queueEntry MatchmakingQueue?
+
+  sentMessages GameMessage[]
+}
+
+model Game {
+  id String @id @default(uuid())
+
+  status GameStatus @default(WAITING)
+  result GameResult?
+
+  turn Color @default(WHITE)
+
+  currentFen String @db.Text
+  pgn        String? @db.Text
+
+  timeControlType TimeControlType
+  initialTimeMs   Int
+  incrementMs     Int @default(0)
+
+  startedAt DateTime?
+  endedAt   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  participants GameParticipant[]
+  moves        Move[]
+  messages     GameMessage[]
+  events       GameEvent[]
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+model GameParticipant {
+  id String @id @default(uuid())
+
+  gameId String
+  userId String
+
+  color Color
+
+  remainingTimeMs Int
+
+  joinedAt DateTime @default(now())
+
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Restrict)
+
+  @@unique([gameId, color])
+  @@unique([gameId, userId])
+  @@index([userId])
+  @@index([gameId])
 }
 
 model Move {
-  id         String   @id @default(uuid())
-  gameId     String
+  id String @id @default(uuid())
+
+  gameId String
+
   moveNumber Int
+  color      Color
+
   san        String
-  from       String
-  to         String
-  fenAfter   String
-  createdAt  DateTime @default(now())
+  fromSquare String
+  toSquare   String
 
-  // game Game @relation(fields: [gameId], references: [id])
+  fenAfter    String @db.Text
+  timeSpentMs Int?
+
+  createdAt DateTime @default(now())
+
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@unique([gameId, moveNumber])
+  @@index([gameId])
 }
 
-model Indexes {
-  id         String   @id @default(uuid())
-  gameId     String
-  moveNumber Int
+model FriendRequest {
+  id String @id @default(uuid())
 
-  @@index([gameId, moveNumber])
+  senderId   String
+  receiverId String
+
+  status FriendRequestStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  sender   User @relation("SentFriendRequests", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("ReceivedFriendRequests", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@unique([senderId, receiverId])
+  @@index([receiverId])
+  @@index([status])
 }
 
+model Friendship {
+  id String @id @default(uuid())
+
+  user1Id String
+  user2Id String
+
+  createdAt DateTime @default(now())
+
+  user1 User @relation("FriendshipUser1", fields: [user1Id], references: [id], onDelete: Cascade)
+  user2 User @relation("FriendshipUser2", fields: [user2Id], references: [id], onDelete: Cascade)
+
+  @@unique([user1Id, user2Id])
+  @@index([user1Id])
+  @@index([user2Id])
+}
+
+model MatchmakingQueue {
+  id String @id @default(uuid())
+
+  userId String @unique
+
+  timeControlType TimeControlType
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([timeControlType])
+  @@index([createdAt])
+}
+
+model GameMessage {
+  id String @id @default(uuid())
+
+  gameId   String
+  senderId String
+
+  message String @db.Text
+
+  createdAt DateTime @default(now())
+
+  game   Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  sender User @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  @@index([gameId])
+  @@index([senderId])
+}
+
+model GameEvent {
+  id String @id @default(uuid())
+
+  gameId String
+  type   GameEventType
+
+  payload Json?
+
+  createdAt DateTime @default(now())
+
+  game Game @relation(fields: [gameId], references: [id], onDelete: Cascade)
+
+  @@index([gameId])
+  @@index([type])
+}
