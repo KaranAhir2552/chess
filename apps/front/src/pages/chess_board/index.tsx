@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { ChessBoard as Board } from 'react-chessboard-ui';
 import 'react-chessboard-ui/dist/index.css';
 // import { socket } from '../../socket';
@@ -26,6 +26,12 @@ const ChessBoardPage: React.FC = () => {
         onChange={(game) => console.log(game)}
         onEndGame={(data) => console.log('Game Ended', data)}
       />
+      <button
+        className="absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded"
+        onClick={() => console.log('Start Game')}
+      >
+        Play
+      </button>
     </main>
   );
 };
