@@ -1,19 +1,19 @@
-import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Login from './Auth/Login';
 import ChessBoardPage from './pages/chess_board';
 import Register from './Auth/Register';
+import ProtectedRoutes from './routes/ProtectedRoutes';
 // import { Toaster } from 'react-hot-toast';
-
-const isAuthenticated = () => {
-  console.log('Checking Authentication: ', !!localStorage.getItem('token'));
-  return !!localStorage.getItem('token');
-};
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: isAuthenticated() ? <ChessBoardPage /> : <Navigate to="/login" replace />,
+    element: (
+      <ProtectedRoutes>
+        <ChessBoardPage />
+      </ProtectedRoutes>
+    ),
   },
   {
     path: '/login',

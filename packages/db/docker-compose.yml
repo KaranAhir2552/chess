@@ -30,6 +30,15 @@ services:
     volumes:
       - redisdata:/data
     command: redis-server --appendonly yes
+
+  redisinsight:
+    image: redis/redisinsight:latest
+    container_name: redis-insight
+    ports:
+      - "5540:5540"
+    depends_on:
+      - redis
+
 volumes:
   pgdata:
   redisdata:

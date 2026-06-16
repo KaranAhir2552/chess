@@ -1,6 +1,8 @@
 import React from 'react';
 import { ChessBoard as Board } from 'react-chessboard-ui';
 import 'react-chessboard-ui/dist/index.css';
+import { GameApi } from '../../Services/ApiEndPoint';
+import { postAPI } from '../../Services/BasicApi';
 // import { socket } from '../../socket';
 
 const ChessBoardPage: React.FC = () => {
@@ -10,6 +12,15 @@ const ChessBoardPage: React.FC = () => {
   //     socket.disconnect();
   //   };
   // }, []);
+
+  const handleStartGame = () => {
+    try {
+      const response = postAPI<any>(GameApi.START, { timeControlType: 'BLITZ' });
+      console.log('Start Game Response:', response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <main className="border border-black h-screen flex items-center justify-center">
       {/* FEN: Forsyth Edwards Notation
@@ -28,7 +39,7 @@ const ChessBoardPage: React.FC = () => {
       />
       <button
         className="absolute top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded"
-        onClick={() => console.log('Start Game')}
+        onClick={() => handleStartGame()}
       >
         Play
       </button>

@@ -4,6 +4,6 @@ export const AuthApi = {
   LOGOUT: '/auth/logout',
 };
 export const GameApi = {
-  START: '/game/start',
+  START: '/game/join',
   END: '/game/end',
 };

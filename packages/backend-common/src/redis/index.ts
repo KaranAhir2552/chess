@@ -1,15 +1,7 @@
-import { createClient } from 'redis';
+import { Redis } from 'ioredis';
+import { env } from '../config/env.js';
+export const redis = new Redis(env.REDIS_URL!);
 
-export const redis = createClient({
-  url: process.env.REDIS_URL,
-});
+export const redisPub = new Redis(env.REDIS_URL!);
 
-redis.on('error', (err) => {
-  console.log('Redis Error', err);
-});
-
-export async function connectRedis() {
-  if (!redis.isOpen) {
-    await redis.connect();
-  }
-}
+export const redisSub = new Redis(env.REDIS_URL!);

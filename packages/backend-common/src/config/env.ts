@@ -16,5 +16,5 @@ export const env = {
   GITHUB_WEBHOOK_SECRET: process.env.GITHUB_WEBHOOK_SECRET,
   PORT: process.env.PORT,
   WSPORT: process.env.WSPORT,
-  REDSIS_URL: process.env.REDIS_URL,
+  REDIS_URL: process.env.REDIS_URL,
 };

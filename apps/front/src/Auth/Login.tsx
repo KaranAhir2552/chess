@@ -29,13 +29,11 @@ const Login: React.FC = () => {
 
       const response = await postAPI<any>(AuthApi.LOGIN, formData);
 
-      console.log('Login Response:', response.data);
-
       // STORE TOKEN
       if (response?.data?.token) {
         localStorage.setItem('token', response.data.token);
         toast.success('Login Successful');
-        navigate('/');
+        return navigate('/');
       }
     } catch (error) {
       console.log('Login Error:', error);

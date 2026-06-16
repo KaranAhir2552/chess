@@ -5,6 +5,7 @@
   "type": "module",
   "exports": {
     "./config": "./src/config/env.ts",
+    "./redis": "./src/redis/index.ts",
     "./async": "./src/async/asyncHandler.ts",
     "./response": "./src/response/apiResponse.ts",
     "./errors": "./src/errors/apiError.ts",
@@ -21,7 +22,7 @@
   "dependencies": {
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
-    "redis": "^6.0.0"
+    "ioredis": "^5.11.1"
   },
   "devDependencies": {
     "@types/express": "^5.0.6"

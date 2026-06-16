@@ -19,7 +19,7 @@ export const login: RequestHandler = asyncHandler(async (req: Request, res: Resp
   if (!existingUser || !(await bcrypt.compare(password, existingUser.passwordHash))) {
     throw new ApiError(400, 'Invalid email or password');
   }
-  const token = jwt.sign({ email }, env.JWT_SECRET!, { expiresIn: '7d' });
+  const token = jwt.sign({ email, id: existingUser.id }, env.JWT_SECRET!, { expiresIn: '7d' });
   res.json({ existingUser, token });
 });
 export const register: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
@@ -38,6 +38,6 @@ export const register: RequestHandler = asyncHandler(async (req: Request, res: R
   }
   const user = await prisma.default.user.create({ data: { email, passwordHash } });
 
-  const token = jwt.sign({ email }, env.JWT_SECRET!, { expiresIn: '7d' });
+  const token = jwt.sign({ email, id: user.id }, env.JWT_SECRET!, { expiresIn: '7d' });
   res.json({ user, token });
 });

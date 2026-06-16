@@ -17,7 +17,8 @@ export const protectedRouter: RequestHandler = asyncHandler(
     try {
       const decoded = jwt.verify(token, env.JWT_SECRET as string) as JwtPayload;
       // attach decoded payload
-      req.user = { id: decoded.userId };
+      console.log(decoded);
+      req.user = { id: decoded.id };
       next();
     } catch (error) {
       res.status(401);
